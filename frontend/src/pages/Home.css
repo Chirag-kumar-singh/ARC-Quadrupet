@@ -1,0 +1,54 @@
+/* Scrollable area BELOW header */
+  .page-content {
+    position: fixed;
+    top: 140px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+  
+    background: transparent;   /* 🔥 THIS restores OG background */
+  }
+  
+  /* Centered content */
+  .home-content {
+    width: 100%;
+    max-width: 1200px;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* Cards grid */
+  .robot-grid {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  /* Tablet */
+  @media (max-width: 1024px) {
+    .home-content {
+      max-width: 900px;
+    }
+  }
+  
+  /* Mobile */
+  @media (max-width: 600px) {
+    .page-content {
+      top: 200px; /* taller stacked header */
+    }
+  
+    .robot-grid {
+      gap: 24px;
+    }
+  }
+  
+  
+
+
+  
