@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import Header from "../components/Header";
 import StatusCards from "../components/StatusCards";
 import TaskPieChart from "../components/TaskPieChart";
 import SensorBarChart from "../components/SensorBarChart";
@@ -32,7 +33,7 @@ export default function Dashboard() {
   const latestReading =
     readings.length > 0 ? readings[readings.length - 1] : null;
 
-  // 🚨 ALERT LOGIC (threshold = 50 PSI)
+  // 🚨 ALERT LOGIC
   useEffect(() => {
     if (!latestReading) return;
 
@@ -44,36 +45,60 @@ export default function Dashboard() {
       setAlertShown(true);
     }
 
-    // Reset alert when pressure returns to safe range
     if (latestReading.pressure <= 50) {
       setAlertShown(false);
     }
   }, [latestReading, alertShown]);
 
   return (
-    <div style={{ padding: "24px" }}>
-      <h1 style={{ color: "#00b4ff" }}>⚙ Robotics Control Dashboard</h1>
+    <>
+      {/* ✅ FIXED HEADER (NEW) */}
+      <Header title="⚙ Robotics Control Dashboard" />
 
-      {/* STATUS CARDS */}
-      <StatusCards />
-
-      {/* MAIN GRID */}
+      {/* ✅ SCROLLABLE CONTENT (NEW) */}
       <div
         style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr 1fr",
-          gap: "24px",
-          marginTop: "30px",
+          position: "fixed",
+          top: "140px", // header height offset
+          left: 0,
+          right: 0,
+          bottom: 0,
+          overflowY: "auto",
+          padding: "24px",
         }}
       >
-        {/* PIE CHART → latest reading */}
-        <TaskPieChart latest={latestReading} />
+        {/* STATUS CARDS */}
+        <StatusCards />
 
-        {/* BAR CHART → historical readings */}
-        <SensorBarChart readings={readings} />
+        {/* MAIN GRID */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr 1fr",
+            gap: "24px",
+            marginTop: "30px",
+          }}
+        >
+          <TaskPieChart latest={latestReading} />
+          <SensorBarChart readings={readings} />
+          <PressureGauge latest={latestReading} />
+        </div>
 
-        {/* GAUGE → latest reading */}
-        <PressureGauge latest={latestReading} />
+        {/* DEBUG JSON VIEW (optional) */}
+        <pre
+          style={{
+            marginTop: 30,
+            background: "#0b1220",
+            padding: 12,
+            borderRadius: 8,
+            fontSize: 12,
+            color: "#7dd3fc",
+            maxHeight: 220,
+            overflow: "auto",
+          }}
+        >
+          {JSON.stringify(readings, null, 2)}
+        </pre>
       </div>
 
       {/* ALERT DIALOG */}
@@ -82,22 +107,6 @@ export default function Dashboard() {
         message={alertMsg}
         onClose={() => setAlertOpen(false)}
       />
-
-      {/* DEBUG JSON VIEW (optional – remove later) */}
-      <pre
-        style={{
-          marginTop: 30,
-          background: "#0b1220",
-          padding: 12,
-          borderRadius: 8,
-          fontSize: 12,
-          color: "#7dd3fc",
-          maxHeight: 220,
-          overflow: "auto",
-        }}
-      >
-        {JSON.stringify(readings, null, 2)}
-      </pre>
-    </div>
+    </>
   );
 }

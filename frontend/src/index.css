@@ -7,9 +7,17 @@
   --danger: #ff4d4f;
 }
 
-body {
+html, body, #root {
+  height: 100%;
   margin: 0;
+}
+
+#root {
   background: radial-gradient(circle at top, #0f1c3a, #05080f);
+}
+
+body {
   color: var(--text-main);
   font-family: "Segoe UI", system-ui, sans-serif;
 }
+
