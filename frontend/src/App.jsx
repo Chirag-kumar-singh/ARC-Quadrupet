@@ -1,3 +1,13 @@
+// import Dashboard from "./pages/Dashboard";
+
+// export default function App() {
+//   return (
+//     <div style={{ minHeight: "100vh" }}>
+//       <Dashboard />
+//     </div>
+//   );
+// }
+
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import G1 from "./pages/G1";

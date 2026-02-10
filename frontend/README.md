@@ -18,3 +18,4 @@ If you are developing a production application, we recommend using TypeScript wi
 
 Please add 
 npm install recharts
+npm install react-router-dom

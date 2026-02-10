@@ -18,6 +18,14 @@
   .header-logo img {
     height: 100px;
   }
+  .header {
+  pointer-events: none;
+}
+
+.header-logo {
+  pointer-events: auto;
+}
+
   
   .header-title {
     position: absolute;
