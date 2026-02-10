@@ -236,6 +236,16 @@
       "pressure": 58,
       "timestamp": "2026-02-08T19:28:56.363636Z",
       "source": "gemma3-vision"
+    },
+    {
+      "pressure": 42,
+      "timestamp": "2026-02-09T04:26:16.789322Z",
+      "source": "gemma3-vision"
+    },
+    {
+      "pressure": 73,
+      "timestamp": "2026-02-09T05:27:31.266788Z",
+      "source": "gemma3-vision"
     }
   ]
 }

@@ -6,6 +6,9 @@ import TaskPieChart from "../components/TaskPieChart";
 import SensorBarChart from "../components/SensorBarChart";
 import PressureGauge from "../components/PressureGauge";
 import AlertDialog from "../components/AlertDialog";
+import InfosysLogo from "../components/InfosysLogo";
+import GaugeImage from "../components/GaugeImage";
+
 
 export default function Dashboard() {
   const [readings, setReadings] = useState([]);
@@ -51,9 +54,13 @@ export default function Dashboard() {
   }, [latestReading, alertShown]);
 
   return (
-    <>
-      {/* ✅ FIXED HEADER (NEW) */}
-      <Header title="⚙ Robotics Control Dashboard" />
+    <div style={{ padding: "24px" }}>
+      <header style={{ display: "flex", alignItems: "center", gap: "12px",marginBottom: "24px" }}>
+        <InfosysLogo width={180} />
+        <h1 style={{ color: "#00b4ff", margin: 0 }}>
+          Robotics Command Center
+        </h1>
+      </header>
 
       {/* ✅ SCROLLABLE CONTENT (NEW) */}
       <div
@@ -70,19 +77,29 @@ export default function Dashboard() {
         {/* STATUS CARDS */}
         <StatusCards />
 
-        {/* MAIN GRID */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr 1fr",
-            gap: "24px",
-            marginTop: "30px",
-          }}
-        >
-          <TaskPieChart latest={latestReading} />
-          <SensorBarChart readings={readings} />
-          <PressureGauge latest={latestReading} />
-        </div>
+      {/* MAIN GRID */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr 1fr",
+          gap: "24px",
+          marginTop: "30px",
+        }}
+      >
+        {/* PIE CHART → latest reading */}
+        <TaskPieChart latest={latestReading} />
+
+        {/* BAR CHART → historical readings */}
+        <SensorBarChart readings={readings} />
+
+        {/* GAUGE → latest reading */}
+        <PressureGauge latest={latestReading} />
+      </div>
+
+      {/* NEW ROW */}
+      <div style={{ marginTop: 30 }}>
+        <GaugeImage />
+      </div>
 
         {/* DEBUG JSON VIEW (optional) */}
         <pre
@@ -107,6 +124,6 @@ export default function Dashboard() {
         message={alertMsg}
         onClose={() => setAlertOpen(false)}
       />
-    </>
+    </div>
   );
 }
