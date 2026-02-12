@@ -1,7 +1,7 @@
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
-const EMERGENCY_PRESSURE = 60;
+const EMERGENCY_PRESSURE = 40;
 
 export default function PressureGauge({ latest }) {
   if (!latest) {

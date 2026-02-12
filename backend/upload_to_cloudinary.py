@@ -2,12 +2,16 @@ import cloudinary
 import cloudinary.uploader
 import json
 from datetime import datetime
+from dotenv import load_dotenv
+
+# 👇 LOAD .env file
+load_dotenv()
 
 # 🔐 Configure (use env vars in real projects)
 cloudinary.config(
-    cloud_name="ddw6yefy0",
-    api_key="135188217753753",
-    api_secret="a0zQ7VkwfnjQcAJ6rlGSewuwV40",
+    cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
+    api_key=os.getenv("CLOUDINARY_API_KEY"),
+    api_secret=os.getenv("CLOUDINARY_API_SECRET"),
     secure=True
 )
 

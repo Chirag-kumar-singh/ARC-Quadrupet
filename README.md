@@ -6,3 +6,7 @@ cd ~/ARC-Quadrupet/frontend
 rm -rf node_modules package-lock.json
 npm install
 npm run dev
+
+
+run server.js from backend 
+node server.js

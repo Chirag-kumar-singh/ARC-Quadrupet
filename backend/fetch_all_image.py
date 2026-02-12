@@ -62,7 +62,7 @@ if __name__ == "__main__":
     images = fetch_all_images("arc_quadrupet/gauges")
     sorted_images = normalize_and_sort(images)
 
-    with open("public/all_images.json", "w") as f:
+    with open(r"/home/arc02/ARC-Quadrupet/frontend/public/all_images.json", "w") as f:
         json.dump(sorted_images, f, indent=2)
 
     print(f"Fetched {len(sorted_images)} images")

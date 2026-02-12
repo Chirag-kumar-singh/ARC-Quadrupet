@@ -3,14 +3,23 @@ import { useEffect, useState } from "react";
 export default function GaugeImage() {
   const [image, setImage] = useState(null);
 
+  const fetchLatest = async () => {
+    try {
+      const res = await fetch("http://localhost:8000/latest-image");
+      const data = await res.json();
+      setImage(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
-    fetch("/latest_image.json")
-      .then((res) => res.json())
-      .then((data) => setImage(data))
-      .catch(console.error);
+    fetchLatest();
+    const interval = setInterval(fetchLatest, 5000); // auto refresh every 5 sec
+    return () => clearInterval(interval);
   }, []);
 
-  if (!image) {
+  if (!image || !image.image_url) {
     return (
       <div style={{ background: "var(--bg-card)", padding: 20 }}>
         No image
@@ -41,7 +50,7 @@ export default function GaugeImage() {
       />
 
       <p style={{ fontSize: 12, color: "#94a3b8", marginTop: 8 }}>
-        Captured at: {new Date(image.timestamp).toLocaleTimeString()}
+        Captured at: {new Date(image.timestamp).toLocaleString()}
       </p>
     </div>
   );

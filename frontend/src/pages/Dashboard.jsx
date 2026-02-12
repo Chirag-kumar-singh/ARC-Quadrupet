@@ -40,15 +40,15 @@ export default function Dashboard() {
   useEffect(() => {
     if (!latestReading) return;
 
-    if (latestReading.pressure > 65 && !alertShown) {
+    if (latestReading.pressure > 41 && !alertShown) {
       setAlertMsg(
-        `⚠ WARNING: Pressure exceeded 50 PSI\nCurrent: ${latestReading.pressure} PSI`
+        `⚠ WARNING: Pressure exceeded 40 PSI\nCurrent: ${latestReading.pressure} PSI`
       );
       setAlertOpen(true);
       setAlertShown(true);
     }
 
-    if (latestReading.pressure <= 50) {
+    if (latestReading.pressure <= 40) {
       setAlertShown(false);
     }
   }, [latestReading, alertShown]);
@@ -87,7 +87,8 @@ export default function Dashboard() {
         }}
       >
         {/* PIE CHART → latest reading */}
-        <TaskPieChart latest={latestReading} />
+        <GaugeImage />
+        {/* <TaskPieChart latest={latestReading} /> */}
 
         {/* BAR CHART → historical readings */}
         <SensorBarChart readings={readings} />
@@ -96,10 +97,10 @@ export default function Dashboard() {
         <PressureGauge latest={latestReading} />
       </div>
 
-      {/* NEW ROW */}
-      <div style={{ marginTop: 30 }}>
+     {/* NEW ROW */}
+     {/* <div style={{ marginTop: 30 }}>
         <GaugeImage />
-      </div>
+      </div> */}
 
         {/* DEBUG JSON VIEW (optional) */}
         <pre

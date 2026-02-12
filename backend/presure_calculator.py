@@ -6,7 +6,7 @@ from pathlib import Path
 from datetime import datetime
 
 OLLAMA_URL = "http://localhost:11434/api/chat"
-MODEL = "gemma3:12b"
+MODEL = "gemma3:27b"
 
 # 🔹 Path to dashboard JSON
 DATA_FILE = Path(
@@ -36,7 +36,7 @@ def save_pressure_reading(pressure: int):
         "source": "gemma3-vision"
     }
 
-    data["readings"].append(entry)
+    data["readings"].append(entry)  
 
     # 🔹 Keep only last 50 readings (optional)
     data["readings"] = data["readings"][-50:]
