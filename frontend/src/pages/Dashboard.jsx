@@ -94,7 +94,8 @@ export default function Dashboard() {
         <TelemetryPanel title="3D ROBOT VIEW">
           <div style={{ height: "500px" }}>
             <iframe
-              src="http://localhost:3001"
+              //src="http://localhost:3001"
+              src="https://go2-3d-viewer.vercel.app/"
               title="GO2 3D Viewer"
               style={{
                 width: "100%",
