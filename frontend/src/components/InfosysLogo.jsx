@@ -1,10 +1,9 @@
 import logo from "../assets/logo.png";
 
-
 export default function InfosysLogo({ width = 180 }) {
   return (
     <img
-      src="/src/assets/logo.png"
+      src={logo}
       alt="Infosys Logo"
       style={{ width: width, height: "auto" }}
     />
