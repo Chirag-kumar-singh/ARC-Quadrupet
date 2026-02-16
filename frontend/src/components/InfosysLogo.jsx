@@ -1,3 +1,6 @@
+import logo from "../assets/logo.png";
+
+
 export default function InfosysLogo({ width = 180 }) {
   return (
     <img
