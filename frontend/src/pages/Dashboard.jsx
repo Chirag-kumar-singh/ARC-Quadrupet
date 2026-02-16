@@ -12,6 +12,7 @@ import StatusPill from "../components/StatusPill";
 import BatteryPanel from "../components/BatteryPanel";
 import MotorHeatmap from "../components/MotorHeatmap";
 import IMUPanel from "../components/IMUPanel";
+import FootPressurePanel from "../components/FootPressurePanel";
 
 export default function Dashboard() {
 
@@ -108,15 +109,27 @@ export default function Dashboard() {
         </TelemetryPanel>
 
         {/* ROW 2 */}
-        <div className="dashboard-grid">
-          <TelemetryPanel title="IMU STATUS">
-            <IMUPanel />
-          </TelemetryPanel>
+        <div className="dashboard-row-split">
 
+          {/* LEFT SIDE STACKED */}
+          <div className="left-stack">
+
+            <TelemetryPanel title="IMU STATUS">
+              <IMUPanel />
+            </TelemetryPanel>
+
+            <TelemetryPanel title="FOOT PRESSURE">
+              <FootPressurePanel />
+            </TelemetryPanel>
+
+          </div>
+
+          {/* RIGHT SIDE FULL HEIGHT */}
           <TelemetryPanel title="PRESSURE MONITOR">
             <PressureGauge latest={latestReading} />
           </TelemetryPanel>
         </div>
+
 
         {/* ROW 3 */}
         <div className="dashboard-grid">

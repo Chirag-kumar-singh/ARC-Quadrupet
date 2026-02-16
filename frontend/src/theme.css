@@ -207,3 +207,34 @@ html, body, #root {
   text-align: center;
 }
 
+.foot-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.foot-box {
+  background: #0b1220;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  text-align: center;
+  transition: 0.2s ease;
+}
+
+.foot-box:hover {
+  border-color: var(--accent);
+}
+
+
+.dashboard-row-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.left-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
