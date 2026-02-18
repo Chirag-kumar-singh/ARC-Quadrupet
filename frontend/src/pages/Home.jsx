@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import g1Img from "../assets/g1.jpg";
 import go2Img from "../assets/go2.jpg";
 import cobotImg from "../assets/cobot.jpg";
+import inmoovImg from "../assets/inmoov_robot.jpeg";
 import Header from "../components/Header";
 import "./Home.css";
 
@@ -72,6 +73,11 @@ export default function Home() {
               title="Cobot Robot"
               image={cobotImg}
               onClick={() => navigate("/cobot")}
+            />
+            <RobotCard
+              title="Gini Robot"
+              image={inmoovImg}
+              onClick={() => navigate("/gini")}
             />
       </div>
     </div>

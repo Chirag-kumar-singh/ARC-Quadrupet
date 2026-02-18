@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 
+import { robots } from "../config/robots";
+
+
 import StatusCards from "../components/StatusCards";
 import SensorBarChart from "../components/SensorBarChart";
 import PressureGauge from "../components/PressureGauge";
@@ -14,13 +17,27 @@ import MotorHeatmap from "../components/MotorHeatmap";
 import IMUPanel from "../components/IMUPanel";
 import FootPressurePanel from "../components/FootPressurePanel";
 
-export default function Dashboard() {
+
+
+
+export default function Dashboard({ robotId  = "go2" }) {
+
+  const robot = robots[robotId] || robots["go2"];
+  const features = robot.features;
+
 
   const [readings, setReadings] = useState([]);
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMsg, setAlertMsg] = useState("");
   const [alertShown, setAlertShown] = useState(false);
   const [connected, setConnected] = useState(true);
+
+  let viewerHeight = 500;
+
+    if (robotId === "gini") {
+      viewerHeight = 1000;
+    }
+
 
   // Load pressure JSON
   useEffect(() => {
@@ -81,6 +98,7 @@ export default function Dashboard() {
       <main className="dashboard-main">
 
         {/* ROW 1 */}
+        {robotId !== "gini" && (
         <div className="dashboard-grid">
           <TelemetryPanel title="BATTERY SYSTEM">
             <BatteryPanel />
@@ -90,14 +108,17 @@ export default function Dashboard() {
             <MotorHeatmap />
           </TelemetryPanel>
         </div>
+        )}
+
+        
 
         {/* 🔥 FULL WIDTH 3D VIEW */}
         <TelemetryPanel title="3D ROBOT VIEW">
-          <div style={{ height: "500px" }}>
+          <div style={{ height: `${viewerHeight}px` }}>
             <iframe
               //src="http://localhost:3001"
-              src="https://arc-robot-viewer.vercel.app/"
-              title="GO2 3D Viewer"
+              src={`https://arc-robot-viewer.vercel.app/?robot=${robotId}`}
+              title="title={`${robotId.toUpperCase()} 3D Viewer`}"
               style={{
                 width: "100%",
                 height: "100%",
@@ -108,55 +129,57 @@ export default function Dashboard() {
           </div>
         </TelemetryPanel>
 
-        {/* ROW 2 */}
-        <div className="dashboard-row-split">
+        {/* ROW 2 - Hide for Gini */}
+        {robotId !== "gini" && (
+          <div className="dashboard-row-split">
 
-          {/* LEFT SIDE STACKED */}
-          <div className="left-stack">
+            <div className="left-stack">
+              <TelemetryPanel title="IMU STATUS">
+                <IMUPanel />
+              </TelemetryPanel>
 
-            <TelemetryPanel title="IMU STATUS">
-              <IMUPanel />
-            </TelemetryPanel>
+              <TelemetryPanel title="FOOT PRESSURE">
+                <FootPressurePanel />
+              </TelemetryPanel>
+            </div>
 
-            <TelemetryPanel title="FOOT PRESSURE">
-              <FootPressurePanel />
+            <TelemetryPanel title="PRESSURE MONITOR">
+              <PressureGauge latest={latestReading} />
             </TelemetryPanel>
 
           </div>
+        )}
 
-          {/* RIGHT SIDE FULL HEIGHT */}
-          <TelemetryPanel title="PRESSURE MONITOR">
-            <PressureGauge latest={latestReading} />
+        {/* ROW 3 - Hide for Gini */}
+        {robotId !== "gini" && (
+          <div className="dashboard-grid">
+            <TelemetryPanel title="HISTORICAL SENSOR DATA">
+              <SensorBarChart readings={readings} />
+            </TelemetryPanel>
+
+            <TelemetryPanel title="VISUAL FEEDBACK">
+              <GaugeImage />
+            </TelemetryPanel>
+          </div>
+        )}
+
+        {/* RAW TELEMETRY - Hide for Gini */}
+        {robotId !== "gini" && (
+          <TelemetryPanel title="RAW TELEMETRY DATA">
+            <pre className="telemetry-raw">
+              {JSON.stringify(readings, null, 2)}
+            </pre>
           </TelemetryPanel>
-        </div>
-
-
-        {/* ROW 3 */}
-        <div className="dashboard-grid">
-          <TelemetryPanel title="HISTORICAL SENSOR DATA">
-            <SensorBarChart readings={readings} />
-          </TelemetryPanel>
-
-          <TelemetryPanel title="VISUAL FEEDBACK">
-            <GaugeImage />
-          </TelemetryPanel>
-        </div>
-
-        {/* RAW TELEMETRY */}
-        <TelemetryPanel title="RAW TELEMETRY DATA">
-          <pre className="telemetry-raw">
-            {JSON.stringify(readings, null, 2)}
-          </pre>
-        </TelemetryPanel>
+        )}
 
       </main>
     </div>
 
-    <AlertDialog
+    {/* <AlertDialog
       open={alertOpen}
       message={alertMsg}
       onClose={() => setAlertOpen(false)}
-    />
+    /> */}
 
   </div>
 );
