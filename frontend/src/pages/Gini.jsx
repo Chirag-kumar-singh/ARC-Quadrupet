@@ -1,5 +1,7 @@
 import DashboardLayout from "./Dashboard";
 import TelemetryPanel from "../components/TelemetryPanel";
+import GiniMotorStatusPanel from "../components/GiniMotorStatusPanel";
+
 
 export default function Gini() {
   return (
@@ -18,6 +20,11 @@ export default function Gini() {
             }}
           />
         </div>
+      </TelemetryPanel>
+
+      {/* MOTOR STATUS */}
+      <TelemetryPanel title="MOTOR STATUS">
+        <GiniMotorStatusPanel />
       </TelemetryPanel>
 
     </DashboardLayout>
